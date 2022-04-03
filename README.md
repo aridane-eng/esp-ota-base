@@ -1,8 +1,9 @@
-# ESP32 Arduino Over-The-Air base
+# ESP32/ESP8266 Arduino Over-The-Air base
 
-This is a starting point for adding OTA support to your ESP32 projects. 
+This is a starting point for adding OTA support to your ESP32/ESP8266 projects. 
 
 After starting, no configuration is available and the ESP will open up an access point which can be used to configure WIFI.
+A web server starts on IP address 192.168.1.30. Note that the webserver itself currently is not password protected.
 
 ```shell
 curl -X POST -d '{ "ssid": "your SSID here", "password": "your password here" }' http://192.168.1.30/config/wifi
@@ -40,3 +41,6 @@ Install the following libraries before building:
 - https://github.com/me-no-dev/ESPAsyncTCP
 
 - https://github.com/me-no-dev/ESPAsyncWebServer
+
+## TODO
+- Authentication for built-in web server.
