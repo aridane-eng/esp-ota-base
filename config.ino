@@ -7,7 +7,6 @@
 /****************************************************************************
  * CONFIGURATION HELPERS
  ****************************************************************************/
-
 void init_filesystem() {
   int ret = LittleFS.begin();
   if (!ret) {
@@ -52,7 +51,7 @@ void save_wifi_config(String s) {
 void save_default_wifi_config() {
   Serial.println("No config found, storing default config");
 
-  DynamicJsonDocument doc(4096);
+  DynamicJsonDocument doc(1024);
 
   doc["ssid"] = "";
   doc["password"] = "";
@@ -69,7 +68,7 @@ void dump_wifi_config() {
 }
 
 void save_mem_wifi_config_to_disk() {
-  DynamicJsonDocument config_json(4096);
+  DynamicJsonDocument config_json(1024);
 
   config_json["ssid"] = wifi_ssid;
   config_json["password"] = wifi_password;
@@ -104,7 +103,7 @@ void load_wifi_config_into_mem() {
 
 void do_config_wifi(String &msg) {
   // Parse definition (json)
-  DynamicJsonDocument wifi_config(256);
+  DynamicJsonDocument wifi_config(1024);
   deserializeJson(wifi_config, msg);
 
   wifi_ssid = wifi_config["ssid"].as<String>();

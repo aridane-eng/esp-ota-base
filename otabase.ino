@@ -1,21 +1,27 @@
-#include <WiFi.h>
-#include <LittleFS.h>
-#include <ArduinoJson.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <ArduinoOTA.h>
+#ifdef ESP8266
+#include <ESP8266WiFi.h>            // ESP Board Support Package
+#else
+#include <WiFi.h>                   // ESP Board Support Package
+#endif
+#include <LittleFS.h>               // ESP Board Support Package
+#include <ArduinoJson.h>            // ArduinoJson by Benoit Blachon: 6.19.3
+#ifdef ESP8266
+#include <ESPAsyncTCP.h>            // https://github.com/me-no-dev/ESPAsyncTCP
+#else
+#include <AsyncTCP.h>               // https://github.com/me-no-dev/AsyncTCP
+#endif
+#include <ESPAsyncWebServer.h>      // https://github.com/me-no-dev/ESPAsyncWebServer
+#include <ArduinoOTA.h>             // ESP Board Support Package
 
 /****************************************************************************
- * DEFINES
- ****************************************************************************/
-
-/****************************************************************************
- * GLOBAL VARIABLES
+ * FORWARD DECLARATIONS
  ****************************************************************************/
 String getSoftApSsid();
 String getSoftApPassword();
 
-
+/****************************************************************************
+ * GLOBAL VARIABLES
+ ****************************************************************************/
 boolean soft_ap_mode_active = false;
 
 String wifi_ssid;
@@ -48,11 +54,9 @@ void setup_wifi() {
       wifi_setup_failed = false;
     } else {
       // We start by connecting to a WiFi network
-      Serial.print("Connecting to ");
-      Serial.println(wifi_ssid);
+      Serial.printf("Connecting to %s\n", wifi_ssid);
   
       WiFi.mode(WIFI_STA);
-      //WiFi.config(ip, dns, gateway, subnet);
       WiFi.begin(wifi_ssid.c_str(), wifi_password.c_str());
   
       int try_count = 0;
@@ -71,13 +75,8 @@ void setup_wifi() {
     }
   } while (wifi_setup_failed);
 
-  Serial.println("");
-  Serial.println("WiFi connected");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
+  Serial.printf("\nWifi connected.\nIP Address: %s\n", WiFi.localIP());
 }
-
-
 
 void setup() {
   Serial.begin(115200);
@@ -88,6 +87,8 @@ void setup() {
   setup_wifi();
   setup_ota();
   setup_http_server();
+
+  Serial.println("OTA ready.");
 }
 
 void loop() {

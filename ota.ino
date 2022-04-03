@@ -1,12 +1,15 @@
 /****************************************************************************
- * OVER THE AIR UPDATES (ARDUINO IDE)
+ * FORWARD DECLARATIONS
  ****************************************************************************/
-
 String getOtaPassword();
 
+/****************************************************************************
+ * OVER THE AIR UPDATES (ARDUINO IDE)
+ ****************************************************************************/
 void setup_ota() {
   ArduinoOTA.setHostname("esp-ota");
   ArduinoOTA.setPassword(getOtaPassword().c_str());
+  ArduinoOTA.setPort(8266);
 
   ArduinoOTA.onStart([]() {
     Serial.println("OTA start");
