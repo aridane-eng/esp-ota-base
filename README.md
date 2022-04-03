@@ -30,16 +30,15 @@ Use the [ESP32 board definitions](https://docs.espressif.com/projects/arduino-es
 ### ESP32
 Install the following libraries before building:
 
-- ArduinoJson
+- ArduinoJson by Benoit Blachon: 6.19.3
 - https://github.com/me-no-dev/AsyncTCP
 - https://github.com/me-no-dev/ESPAsyncWebServer
 
 ### ESP8266
 Install the following libraries before building:
 
-- ArduinoJson
+- ArduinoJson by Benoit Blachon: 6.19.3
 - https://github.com/me-no-dev/ESPAsyncTCP
-
 - https://github.com/me-no-dev/ESPAsyncWebServer
 
 ## TODO
